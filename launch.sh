@@ -16,8 +16,8 @@ if [ -z "${ES_PORT_9200_TCP_ADDR}" ] || [ -z "${ES_PORT_9200_TCP_PORT}" ]; then
     exit 1
 fi
 
-if [ -z "${AWS_ACCESS_KEY}" ] || [ -z "${AWS_SECRET_KEY}" ]; then
-    echo "missing AWS config; did you provide AWS_ACCESS_KEY and AWS_SECRET_KEY?"
+if [ -z "${AWS_ACCESS_KEY}" ] || [ -z "${AWS_SECRET_KEY}" ] || [ -z "${AWS_REGION}" ]; then
+    echo "missing AWS config; did you provide AWS_ACCESS_KEY, AWS_SECRET_KEY and AWS_REGION?"
     exit 1
 fi
 
@@ -30,6 +30,7 @@ find /etc/logstash/templates -type f | while read src; do
         -e "s#@@ES_PORT@@#${ES_PORT_9200_TCP_PORT}#g" \
         -e "s#@@AWS_ACCESS_KEY@@#${AWS_ACCESS_KEY}#g" \
         -e "s#@@AWS_SECRET_KEY@@#${AWS_SECRET_KEY}#g" \
+        -e "s#@@AWS_REGION@@#${AWS_REGION}#g" \
         < "${src}" \
         > "${dest}"
 done
