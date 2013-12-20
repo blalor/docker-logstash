@@ -1,4 +1,4 @@
-FROM blalor/logstash:1.2.2
+FROM blalor/logstash:ec35c49
 MAINTAINER Brian Lalor <brian@autosportlabs.com>
 
 VOLUME ["/logstash"]
@@ -12,6 +12,6 @@ ADD plugins/ /etc/logstash/plugins/
 
 ADD launch.sh /launch.sh
 
-RUN (echo -n "autosportlabs/logstash:private" ; date -u) >> /.docker
+RUN (echo -n "asl-private/logstash" ; date -u) >> /.docker
 
 CMD ["/launch.sh"]
