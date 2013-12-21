@@ -16,11 +16,6 @@ if [ -z "${ES_PORT_9200_TCP_ADDR}" ] || [ -z "${ES_PORT_9200_TCP_PORT}" ]; then
     exit 1
 fi
 
-if [ -z "${AWS_ACCESS_KEY}" ] || [ -z "${AWS_SECRET_KEY}" ] || [ -z "${AWS_REGION}" ]; then
-    echo "missing AWS config; did you provide AWS_ACCESS_KEY, AWS_SECRET_KEY and AWS_REGION?"
-    exit 1
-fi
-
 ## set the host and port for elasticsearch. MUST BE VISIBLE TO THE BROWSER!!
 find /etc/logstash/templates -type f | while read src; do
     dest="/etc/logstash/conf/$( basename ${src} )"
@@ -28,9 +23,6 @@ find /etc/logstash/templates -type f | while read src; do
     sed \
         -e "s#@@ES_HOST@@#${ES_PORT_9200_TCP_ADDR}#g" \
         -e "s#@@ES_PORT@@#${ES_PORT_9200_TCP_PORT}#g" \
-        -e "s#@@AWS_ACCESS_KEY@@#${AWS_ACCESS_KEY}#g" \
-        -e "s#@@AWS_SECRET_KEY@@#${AWS_SECRET_KEY}#g" \
-        -e "s#@@AWS_REGION@@#${AWS_REGION}#g" \
         < "${src}" \
         > "${dest}"
 done
@@ -38,6 +30,7 @@ done
 [ -d /logstash/sincedb ] || mkdir /logstash/sincedb
 
 exec java \
+    -Dfile.encoding=UTF-8 \
     ${JAVA_OPTS} \
     -jar /usr/share/logstash/logstash.jar \
     agent \
