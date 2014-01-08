@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 ## capture non-default environment variables.  This only works for login shells.
 ## There appears to be no way to set system-wide environment variables on
 ## redhat.
