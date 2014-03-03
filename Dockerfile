@@ -9,4 +9,4 @@ ADD src/ /tmp/src/
 RUN /tmp/src/config.sh
 
 ## provide a method for sharing the SSL key and certificate
-VOLUME [ "/etc/logstash/pki", "/logstash" ]
+VOLUME [ "/etc/logstash/pki" ]
