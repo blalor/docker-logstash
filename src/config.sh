@@ -16,8 +16,14 @@ curl \
 
 cd /tmp/src
 
-mkdir /etc/logstash
-mv conf plugins templates /etc/logstash/
+mkdir /etc/logstash/
+
+## wtf?
+## mv: will not create hard link `/etc/logstash/plugins' to directory `/etc/logstash/conf'
+## just going to move these into place separately
+mv conf /etc/logstash/conf
+mv plugins /etc/logstash/plugins
+mv templates /etc/logstash/templates
 
 mv launch.sh /usr/local/bin/launch-logstash.sh
 mv supervisord.conf /etc/supervisor.d/logstash.conf
