@@ -12,7 +12,7 @@ ln -s libzmq.so.1 libzmq.so
 curl \
     --create-dirs \
     --output /usr/share/logstash/logstash.jar \
-    https://download.elasticsearch.org/logstash/logstash/logstash-1.2.2-flatjar.jar 
+    http://download.elasticsearch.org/logstash/logstash/logstash-1.3.3-flatjar.jar
 
 cd /tmp/src
 
