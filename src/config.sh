@@ -24,6 +24,7 @@ mkdir /etc/logstash/
 mv conf /etc/logstash/conf
 mv plugins /etc/logstash/plugins
 mv templates /etc/logstash/templates
+mv patterns /etc/logstash/patterns
 
 mv launch.sh /usr/local/bin/launch-logstash.sh
 mv supervisord.conf /etc/supervisor.d/logstash.conf
