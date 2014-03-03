@@ -1,5 +1,5 @@
-FROM localhost:5000/core/java
-MAINTAINER Brian Lalor <brian@autosportlabs.com>
+FROM blalor/java
+MAINTAINER Brian Lalor <blalor@bravo5.org>
 
 ## 2120 zeromq publish output
 ## 4244 lumberjack input
