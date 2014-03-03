@@ -29,8 +29,6 @@ find /etc/logstash/templates -type f | while read src; do
         > "${dest}"
 done
 
-[ -d /logstash/sincedb ] || mkdir /logstash/sincedb
-
 exec java \
     -Dfile.encoding=UTF-8 \
     ${JAVA_OPTS} \
