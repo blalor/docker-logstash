@@ -13,8 +13,10 @@ yum install -y logstash-${LOGSTASH_VER} zeromq incron lockfile-progs
 
 ## plugin install contrib is broken
 ## https://logstash.jira.com/browse/LOGSTASH-2257
+## riemann output plugin is broken; use our own
+## https://github.com/elasticsearch/logstash-contrib/pull/72
 curl -L -k http://download.elasticsearch.org/logstash/logstash/logstash-contrib-${LOGSTASH_VER}.tar.gz \
-    | tar -xz --strip-components=1 -C /opt/logstash -f -
+    | tar -xz --strip-components=1 --exclude=lib/logstash/outputs/riemann.rb -C /opt/logstash -f -
 
 ## grrr logstash/java/ruby
 cd /usr/lib64
