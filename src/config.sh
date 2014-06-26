@@ -3,34 +3,24 @@
 set -e
 set -x
 
-yum install -y zeromq
+LOGSTASH_VER="1.4.2"
+
+cd /tmp/src
+
+tar -c -C skel -f - . | tar -xf - -C /
+
+yum install -y logstash-${LOGSTASH_VER} zeromq incron lockfile-progs
+
+## plugin install contrib is broken
+## https://logstash.jira.com/browse/LOGSTASH-2257
+curl -L -k http://download.elasticsearch.org/logstash/logstash/logstash-contrib-${LOGSTASH_VER}.tar.gz \
+    | tar -xz --strip-components=1 -C /opt/logstash -f -
 
 ## grrr logstash/java/ruby
 cd /usr/lib64
 ln -s libzmq.so.1 libzmq.so
 
-curl \
-    --create-dirs \
-    --output /usr/share/logstash/logstash.jar \
-    http://download.elasticsearch.org/logstash/logstash/logstash-1.3.3-flatjar.jar
-
-cd /tmp/src
-
-mkdir /etc/logstash/
-
-## wtf?
-## mv: will not create hard link `/etc/logstash/plugins' to directory `/etc/logstash/conf'
-## just going to move these into place separately
-mv conf /etc/logstash/conf
-mv plugins /etc/logstash/plugins
-mv templates /etc/logstash/templates
-mv patterns /etc/logstash/patterns
-
-mv launch.sh /usr/local/bin/launch-logstash.sh
-mv supervisord.conf /etc/supervisor.d/logstash.conf
-
 ## cleanup
-
 yum clean all
 
 cd /
