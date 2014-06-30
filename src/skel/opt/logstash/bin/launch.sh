@@ -19,10 +19,11 @@ fi
 program="/opt/logstash/bin/logstash"
 args="agent --config /etc/logstash/conf/ --log ${LS_LOG_FILE} ${LS_OPTS}"
 
-JAVA_OPTS=${LS_JAVA_OPTS}
+JAVA_OPTS="-javaagent:/usr/share/java/jmxtrans-agent.jar=/usr/share/java/jmxtrans-agent.xml ${LS_JAVA_OPTS}"
 HOME=${LS_HOME}
 
 export PATH HOME JAVA_OPTS LS_HEAP_SIZE LS_JAVA_OPTS LS_USE_GC_LOGGING
+export GRAPHITE_HOST GRAPHITE_PORT GRAPHITE_PREFIX
 
 # set ulimit as (root, presumably) first, before we drop privileges
 # will not be possible if the docker process limit is lower
